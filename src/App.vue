@@ -6,6 +6,19 @@
     <!-- <TodoList :list="list" v-on:delete-item="onDeleteItem"/> -->
     <TodoList :list="list" @delete-item="onDeleteItem"/>
     <p>共计：{{countTotal}}元</p>
+     <div class="tab">
+        <ul>
+           <li>
+              <router-link to="/a">a</router-link>
+           </li>
+           <li>
+              <router-link to="/b">b</router-link>
+           </li>
+        </ul>
+     </div>
+    <div class="tab-content">
+         <router-view></router-view>
+    </div>
   </div>
 </template>
 
