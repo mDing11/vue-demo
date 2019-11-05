@@ -3,7 +3,8 @@
     请输入值：
     <input v-model.number="value">
     <button @click="addNumber">添加</button>
-    <TodoList :list="list" v-on:delete-item="onDeleteItem"/>
+    <!-- <TodoList :list="list" v-on:delete-item="onDeleteItem"/> -->
+    <TodoList :list="list" @delete-item="onDeleteItem"/>
     <p>共计：{{countTotal}}元</p>
   </div>
 </template>

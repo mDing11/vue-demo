@@ -3,7 +3,8 @@
   <p>
     金额{{index+1}}：
     {{item}}元
-    <button v-on:click="$emit('delete-item',index)">删除</button>
+    <!-- <button v-on:click="$emit('delete-item',index)">删除</button> -->
+    <button @click="onDelete(index)">删除</button>
   </p>
 </template>
 
@@ -15,8 +16,8 @@ export default {
     index: Number
   },
   methods: {
-    onDelete: function() {
-      console.log("删除");
+    onDelete: function(index) {
+       this.$emit("delete-item",index)
     }
   }
 };
