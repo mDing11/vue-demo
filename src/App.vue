@@ -1,17 +1,45 @@
 <template>
   <div id="app">
-    <img width="25%" src="./assets/logo.png">
-    <HelloWorld msg="Hello Vue in CodeSandbox!" />
+    请输入值：
+    <input v-model.number="value">
+    <button @click="addNumber">添加</button>
+    <TodoList :list="list" v-on:delete-item="onDeleteItem"/>
+    <p>共计：{{countTotal}}元</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import TodoList from "./components/TodoList";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    TodoList
+  },
+  data: function() {
+    return {
+      value: "",
+      list: []
+    };
+  },
+  methods: {
+    addNumber: function() {
+      this.list.push(this.value);
+      this.value = "";
+    },
+    onDeleteItem: function(number) {
+      this.list = this.list.filter((value, index) => index !== number);
+    }
+  },
+  computed: {
+    countTotal: function() {
+      return (
+        this.list.length &&
+        this.list.reduce((value, item) => {
+          return value + item;
+        })
+      );
+    }
   }
 };
 </script>
