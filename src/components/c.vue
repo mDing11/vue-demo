@@ -1,5 +1,5 @@
 <template>
     <div>
-        新闻
+        详情页面
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
     <div>
-        新闻
+        购物车
     </div>
 </template>

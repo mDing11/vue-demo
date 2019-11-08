@@ -1,5 +1,5 @@
 <template>
     <div>
-        新闻
+        商铺
     </div>
 </template>
