@@ -1,5 +1,3 @@
 <template>
-    <div>
-        购物车
-    </div>
+  <div>d界面</div>
 </template>

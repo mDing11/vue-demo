@@ -5,41 +5,24 @@ import 'nprogress/nprogress.css';
 
 Vue.use(VueRouter)
 const routes = [
-  {
-    path: '/h', 
-    component: (resolve)=>require(["@/components/c.vue"], resolve)
-  },
-  {
-    path: '/', 
-    component: (resolve)=>require(["@/m.vue"], resolve),
-      children:[
         { path: '/',  redirect:'/a' },
         { path: '/a', 
           component: (resolve)=>require(["@/components/a.vue"], resolve),
           children: [
             {
-              path: '/',
-              component: (resolve)=>require(["@/components/d.vue"], resolve) 
+              path: 'e',
+              component: (resolve)=>require(["@/components/e.vue"], resolve) 
             },
             {
-              path: '/d',
-              component: (resolve)=>require(["@/components/d.vue"], resolve) 
-            },
-            {
-              path: '/w',
+              path: 'w',
               component: (resolve)=>require(["@/components/w.vue"], resolve) 
-            },
-            {
-              path: '/f',
-              redirect: '/e'
             }
           ]
          },
         { path: '/b', component: (resolve)=>require(["@/components/b.vue"], resolve) },
-        { path: '/c',  redirect: '/h'},
-        { path: '/e', component: (resolve)=>require(["@/components/e.vue"], resolve) } // 子页面
-      ]
-  }
+        { path: '/c', component: (resolve)=>require(["@/components/c.vue"], resolve) }, // 子页面
+        { path: '/d', component: (resolve)=>require(["@/components/d.vue"], resolve) } // 子页面
+    
     ]
 
   const router = new VueRouter({

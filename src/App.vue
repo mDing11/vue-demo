@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="tab-content">
+        <span class="router-space"> <router-link to="a">首页</router-link></span>
+        <span class="router-space"> <router-link to="b">详情</router-link></span>
+         <span class="router-space"> <router-link to="c">个人</router-link></span>
          <router-view></router-view>
     </div>
   </div>
