@@ -2,7 +2,8 @@
     <div>
         源码实现：
         <button @click="myBind">bind实现</button>
-
+        <button @click="myCall">myCall/myApply</button>
+        <button @click="myReduce">myReduce</button>
     </div>
 </template>
 <script>
@@ -57,6 +58,105 @@ methods:{
         new bound(); // new调用时不改变this 优先级高于显示绑定和隐式绑定
 
         bound();
+    },
+    myCall(){
+        Function.prototype.myCall = function(thisArg){
+            if(typeof this !== 'function'){
+                throw TypeError('Error');
+            }
+
+            const args = [...arguments].slice(1); // 截取第一个之后的参数
+
+            thisArg = thisArg || window;
+
+            thisArg.fn = this;
+            console.log('this',this);
+            const result = thisArg.fn(...args);
+
+            delete thisArg.fn;
+            return result;
+        }
+
+        Function.prototype.myApply = function(thisArg){
+            if(typeof this !== 'function'){
+                throw TypeError('type Error');
+            }
+
+            const args = arguments[1];
+
+            thisArg = thisArg || window;
+
+            thisArg.fn = this;
+            const result = thisArg.fn(...args);
+
+            delete thisArg.fn;
+
+            return result;
+        }
+
+        const bar = function(){
+            console.log(this.name,arguments);
+        }
+
+        bar.prototype.name = bar;
+
+        const foo = {
+            name:'foo'
+        }
+
+        bar.myCall(foo,1,2,3);
+        bar.myApply(foo,[1,2,3]);
+    },
+    myReduce(){
+        Array.prototype.myReduce = function(fn){
+            if(! (this instanceof Array)){
+                throw TypeError('不是数组');
+            }
+
+            console.log(this);
+
+        const arrayValue = this; // 存储数组值
+
+        const len = arrayValue.length;
+
+        let k = 0;
+
+        let accum = undefined; // 累加值
+
+        let keyPresent = false;
+
+        let intl = arguments.length > 1? arguments[1]:undefined;
+
+        // 有初始值 数组为空 报错
+
+        if(arguments.length > 1){
+            accum = intl;
+        }else{
+            accum = arrayValue[0];
+            k++;
+        }
+
+        while(k<len){
+            keyPresent = arrayValue.hasOwnProperty(k);
+
+            if(keyPresent){
+                const kValue = arrayValue[k];
+
+                accum = fn.apply(undefined,[accum,kValue,k,arrayValue]);
+            }
+
+            ++k;
+        }
+        return accum;
+
+
+        }
+
+        const a = [1,2,3];
+        const v = a.myReduce((a,b)=>a+b,3);
+
+        const v1 = a.reduce((a,b)=>a+b,3)
+        console.log(v,v1);
     }
 }
 }
