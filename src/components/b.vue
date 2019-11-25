@@ -4,6 +4,7 @@
         <button @click="myBind">bind实现</button>
         <button @click="myCall">myCall/myApply</button>
         <button @click="myReduce">myReduce</button>
+        <button @click="myNew">new</button>
     </div>
 </template>
 <script>
@@ -157,6 +158,38 @@ methods:{
 
         const v1 = a.reduce((a,b)=>a+b,3)
         console.log(v,v1);
+    },
+    myNew(){
+        // new做了哪些事情
+        // 新建一个对象
+        // this指向该对象
+        // 参数赋值 返回这个对象
+        function MyNew(){
+            var obj = new Object(); // 新建一个对象
+
+            console.log('arguments',arguments)
+
+            var Constructor = Array.prototype.shift.call(arguments);
+
+            console.log(Constructor)
+
+            obj.__proto__ = Constructor.prototype;
+
+            // 调用构造器，改变其指向
+            var ret = Constructor.apply(obj,arguments);
+
+            return typeof ret === 'object'?ret:obj;
+        }
+
+        const testNewFun = function(name){
+            this.name = name;
+        }
+
+        const newObj = MyNew(testNewFun,'foo');
+
+        console.log(newObj);
+
+        console.log(newObj instanceof testNewFun);
     }
 }
 }
